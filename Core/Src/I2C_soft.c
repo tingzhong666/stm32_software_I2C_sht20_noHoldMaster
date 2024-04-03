@@ -50,13 +50,99 @@ GPIO_PinState SDA_GET()
 // 开始
 void I2C_soft_start()
 {
-    SCL(GPIO_PIN_SET);
     SDA_OUT();
+    SCL(GPIO_PIN_SET);
     SDA(GPIO_PIN_SET);
+    delay_1us(5);
+    SDA(GPIO_PIN_RESET);
+    delay_1us(5);
+    SCL(GPIO_PIN_RESET);
 }
 // 停止
+void I2C_soft_stop()
+{
+    SDA_OUT();
+    SDA(GPIO_PIN_RESET);
+    SCL(GPIO_PIN_SET);
+    delay_1us(5);
+    SDA(GPIO_PIN_SET);
+    delay_1us(5);
+}
 // 应答
+void I2C_soft_ack()
+{
+    SDA_OUT();
+    SCL(GPIO_PIN_RESET);
+    SDA(GPIO_PIN_RESET);
+    SCL(GPIO_PIN_SET);
+    delay_1us(5);
+    SCL(GPIO_PIN_RESET);
+}
 // 非应答
-// 等待应答
+void I2C_soft_nack()
+{
+    SDA_OUT();
+    SCL(GPIO_PIN_RESET);
+    SDA(GPIO_PIN_SET);
+    SCL(GPIO_PIN_SET);
+    delay_1us(5);
+    SCL(GPIO_PIN_RESET);
+}
+// 等待应答 1 ack -1 nack
+int I2C_soft_awaitAck()
+{
+    SCL(GPIO_PIN_RESET);
+    SDA_OUT();
+    SDA(GPIO_PIN_SET);
+    SDA_IN();
+    delay_1us(5);
+    SCL(GPIO_PIN_SET);
+    delay_1us(5);
+    for (int i = 10; i--;)
+    {
+        // 应答
+        if (HAL_GPIO_ReadPin(I2C_soft_SDA_IO, I2C_soft_SDA_IO_PIN) == GPIO_PIN_RESET)
+        {
+            SDA_OUT();
+            SCL(GPIO_PIN_RESET);
+            return 1;
+        }
+        delay_1us(5);
+    }
+    // 非应答
+    I2C_soft_stop();
+    return -1;
+}
 // 发送数据
+void I2C_soft_sendByte(uint8_t data)
+{
+    SDA_OUT();
+
+    for (int i = 8; i--;)
+    {
+        SCL(GPIO_PIN_RESET);
+        SDA((GPIO_PinState)data);
+        SCL(GPIO_PIN_SET);
+        delay_1us(5);
+        data >>= 1;
+    }
+    SCL(GPIO_PIN_RESET);
+}
+
 // 接收数据
+uint8_t I2C_soft_recByte()
+{
+    uint8_t res = 0;
+    SDA_IN();
+    for (int i = 8; i--;)
+    {
+        res <<= 1;
+        SCL(GPIO_PIN_RESET);
+        SCL(GPIO_PIN_SET);
+        delay_1us(5);
+        res |= SDA_GET();
+    }
+    SCL(GPIO_PIN_RESET);
+    SDA_OUT();
+    return res;
+}

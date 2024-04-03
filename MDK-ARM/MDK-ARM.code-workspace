@@ -15,7 +15,11 @@
 			"systick.h": "c",
 			"algorithm": "c",
 			"gpio.h": "c",
-			"sht20.h": "c"
+			"sht20.h": "c",
+			"array": "c",
+			"string": "c",
+			"string_view": "c",
+			"math.h": "c"
 		}
 	}
 }

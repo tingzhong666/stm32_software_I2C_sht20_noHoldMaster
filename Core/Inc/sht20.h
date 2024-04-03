@@ -15,6 +15,7 @@ extern "C"
 #include "main.h"
 #include "i2c.h"
 #include "math.h"
+#include "I2C_soft.h"
 
     typedef enum
     {
@@ -24,6 +25,7 @@ extern "C"
 
     void sht20_init(void);
     double sht20_Tmeasurement_HM(MeasurementType);
+    double sht20_Tmeasurement_NHM(MeasurementType t);
 
 #ifdef __cplusplus
 }
