@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stm32f1xx_hal.h": "c",
+			"main.h": "c",
+			"i2c.h": "c",
+			"usart.h": "c",
+			"stdio.h": "c",
+			"i2c_soft.h": "c",
+			"systick.h": "c",
+			"algorithm": "c",
+			"gpio.h": "c",
+			"sht20.h": "c"
+		}
+	}
+}
