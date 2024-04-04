@@ -3,16 +3,16 @@
         {
             "name": "stm32_test",
             "includePath": [
-                "d:\\development\\projects\\stm32_test\\Core\\Inc",
-                "C:\\Users\\tingzhong\\STM32Cube\\Repository\\STM32Cube_FW_F1_V1.8.5\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "C:\\Users\\tingzhong\\STM32Cube\\Repository\\STM32Cube_FW_F1_V1.8.5\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "C:\\Users\\tingzhong\\STM32Cube\\Repository\\STM32Cube_FW_F1_V1.8.5\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "C:\\Users\\tingzhong\\STM32Cube\\Repository\\STM32Cube_FW_F1_V1.8.5\\Drivers\\CMSIS\\Include",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Core\\Inc",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Drivers\\CMSIS\\Include",
                 "D:\\apps\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\apps\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "d:\\development\\projects\\stm32_test\\MDK-ARM",
-                "d:\\development\\projects\\stm32_test\\Core\\Src",
-                "C:\\Users\\tingzhong\\STM32Cube\\Repository\\STM32Cube_FW_F1_V1.8.5\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\MDK-ARM",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Core\\Src",
+                "d:\\development\\workspace_code\\vscode.keil5\\stm32_software_I2C_sht20_noHoldMaster\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

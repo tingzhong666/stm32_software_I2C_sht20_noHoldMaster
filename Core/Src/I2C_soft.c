@@ -4,11 +4,6 @@
  * 2024-04-01 11:50:42
  */
 #include <I2C_soft.h>
-#define I2C_soft_SCL_IO GPIOA
-#define I2C_soft_SCL_IO_PIN GPIO_PIN_8
-
-#define I2C_soft_SDA_IO GPIOA
-#define I2C_soft_SDA_IO_PIN GPIO_PIN_9
 
 void SCL(GPIO_PinState v)
 {
@@ -51,8 +46,8 @@ GPIO_PinState SDA_GET()
 void I2C_soft_start()
 {
     SDA_OUT();
-    SCL(GPIO_PIN_SET);
     SDA(GPIO_PIN_SET);
+    SCL(GPIO_PIN_SET);
     delay_1us(5);
     SDA(GPIO_PIN_RESET);
     delay_1us(5);
@@ -72,7 +67,6 @@ void I2C_soft_stop()
 void I2C_soft_ack()
 {
     SDA_OUT();
-    SCL(GPIO_PIN_RESET);
     SDA(GPIO_PIN_RESET);
     SCL(GPIO_PIN_SET);
     delay_1us(5);
@@ -82,7 +76,6 @@ void I2C_soft_ack()
 void I2C_soft_nack()
 {
     SDA_OUT();
-    SCL(GPIO_PIN_RESET);
     SDA(GPIO_PIN_SET);
     SCL(GPIO_PIN_SET);
     delay_1us(5);
@@ -91,7 +84,6 @@ void I2C_soft_nack()
 // 等待应答 1 ack -1 nack
 int I2C_soft_awaitAck()
 {
-    SCL(GPIO_PIN_RESET);
     SDA_OUT();
     SDA(GPIO_PIN_SET);
     SDA_IN();
@@ -121,10 +113,10 @@ void I2C_soft_sendByte(uint8_t data)
     for (int i = 8; i--;)
     {
         SCL(GPIO_PIN_RESET);
-        SDA((GPIO_PinState)data);
+        SDA((GPIO_PinState)((data & 0x80) >> 7));
         SCL(GPIO_PIN_SET);
         delay_1us(5);
-        data >>= 1;
+        data <<= 1;
     }
     SCL(GPIO_PIN_RESET);
 }
@@ -138,6 +130,7 @@ uint8_t I2C_soft_recByte()
     {
         res <<= 1;
         SCL(GPIO_PIN_RESET);
+        delay_1us(5);
         SCL(GPIO_PIN_SET);
         delay_1us(5);
         res |= SDA_GET();

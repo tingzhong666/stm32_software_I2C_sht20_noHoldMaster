@@ -14,6 +14,12 @@ extern "C"
 
 #include "main.h"
 
+#define I2C_soft_SCL_IO GPIOA
+#define I2C_soft_SCL_IO_PIN GPIO_PIN_8
+
+#define I2C_soft_SDA_IO GPIOA
+#define I2C_soft_SDA_IO_PIN GPIO_PIN_9
+
     void I2C_soft_start(void);
     void I2C_soft_stop(void);
     void I2C_soft_ack(void);

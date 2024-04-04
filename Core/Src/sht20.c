@@ -106,19 +106,21 @@ double sht20_Tmeasurement_NHM(MeasurementType t)
     // 开始
     I2C_soft_start();
     // 发送 地址写
-    I2C_soft_sendByte(0x80);
+    I2C_soft_sendByte(0X80);
     // 等待应答
-    I2C_soft_awaitAck();
-    // 开始
-    I2C_soft_start();
+    if (I2C_soft_awaitAck() == -1)
+    {
+        printf("err 1\n");
+    }
     // 发送 读取指令
     I2C_soft_sendByte(rec[0]);
     // 等待应答
-    I2C_soft_awaitAck();
-    // 停止
-    delay_1us(20);
-    I2C_soft_stop();
+    if (I2C_soft_awaitAck() == -1)
+    {
+        printf("err 2\n");
+    }
     // 轮训等待应答
+    delay_1us(20);
     while (1)
     {
         // -开始
@@ -128,8 +130,6 @@ double sht20_Tmeasurement_NHM(MeasurementType t)
         // -等待应答 nack停止 ack跳出循环
         if (I2C_soft_awaitAck() == 1)
             break;
-        else
-            I2C_soft_stop();
     }
     // 接收数据MSB
     rec[0] = I2C_soft_recByte();
@@ -149,7 +149,7 @@ double sht20_Tmeasurement_NHM(MeasurementType t)
     if (t == temperature)
         res = 175.72 * tmp / pow(2, 16) - 46.85;
     if (t == humidity)
-        res = 128 * tmp / pow(2, 16) - 6;
+        res = 125 * tmp / pow(2, 16) - 6;
     printf("sht20_Tmeasurement_HM tmp=0x%x rec[0]=0x%x rec[1]=0x%x\n", tmp, rec[0], rec[1]);
     return res;
 }
